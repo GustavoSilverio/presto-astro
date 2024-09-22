@@ -1,0 +1,159 @@
+---
+import { Icons } from "../content/icons"
+import Drawer from "./Drawer.astro"
+---
+
+<header class="flex justify-between items-center px-10 lg:px-[120px] py-6">
+	<div class="flex items-center gap-4">
+		<h1 class="hidden lg:block text-5xl font-bold">Presto</h1>
+
+		<Icons.logo />
+	</div>
+
+	<nav class="relative flex items-center justify-center">
+		<ul
+			id="links-list"
+			class="hidden lg:flex gap-9"
+		>
+			<li>
+				<a
+					class="transition duration-300"
+					name="home"
+					href="/"
+				>
+					home
+				</a>
+			</li>
+
+			<li>
+				<a
+					class="transition duration-300"
+					name="menu"
+					href="/menu"
+				>
+					menu
+				</a>
+			</li>
+
+			<li>
+				<a
+					class="transition duration-300"
+					name="about"
+					href="/about"
+				>
+					about
+				</a>
+			</li>
+
+			<li>
+				<a
+					class="transition duration-300"
+					name="contact"
+					href="/contact"
+				>
+					contact
+				</a>
+			</li>
+		</ul>
+
+		<button
+			id="menu-button"
+			class="lg:hidden"
+		>
+			<Icons.menu />
+		</button>
+	</nav>
+</header>
+
+<Drawer
+	title="Menu"
+	drawerId="menu"
+>
+	<ul
+		id="links-list"
+		class="flex flex-col gap-6"
+	>
+		<li>
+			<a
+				class="transition duration-300"
+				name="home"
+				href="/"
+			>
+				home
+			</a>
+		</li>
+
+		<li>
+			<a
+				class="transition duration-300"
+				name="menu"
+				href="/menu"
+			>
+				menu
+			</a>
+		</li>
+
+		<li>
+			<a
+				class="transition duration-300"
+				name="about"
+				href="/about"
+			>
+				about
+			</a>
+		</li>
+
+		<li>
+			<a
+				class="transition duration-300"
+				name="contact"
+				href="/contact"
+			>
+				contact
+			</a>
+		</li>
+	</ul>
+</Drawer>
+
+<script>
+	import type { Drawer } from "../types/utils"
+
+	const anchorsNames = ["home", "menu", "about", "contact"]
+
+	const anchorsList = anchorsNames.map(anchorName => {
+		return document.getElementsByName(anchorName) as NodeListOf<HTMLElement>
+	})
+
+	const anchors: Record<string, NodeListOf<HTMLElement> | null> = {
+		"/": anchorsList[0],
+		"/menu": anchorsList[1],
+		"/about": anchorsList[2],
+		"/contact": anchorsList[3],
+	}
+
+	const pathname = window.location.pathname
+	const style = ["text-primary", "underline"]
+
+	const selectedAnchors = anchors[pathname]
+	selectedAnchors?.forEach(anchor => {
+		anchor.classList.add(...style)
+	})
+
+	const drawer = document.getElementById("menu") as Drawer
+
+	anchorsList.forEach(anchor => {
+		anchor.forEach(a => {
+			a.addEventListener("click", () => {
+				drawer.close()
+			})
+		})
+	})
+
+	const menuButton = document.getElementById(
+		"menu-button"
+	) as HTMLButtonElement
+
+	menuButton.addEventListener("click", () => {
+		drawer.open()
+	})
+</script>

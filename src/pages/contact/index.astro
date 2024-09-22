@@ -1,0 +1,49 @@
+---
+import Layout from "../../layouts/BaseLayout.astro"
+---
+
+<Layout title="Presto | Contact">
+	<div class="flex justify-center items-center h-[calc(100dvh-206px)] px-4">
+		<div
+			class="flex flex-col gap-6 p-8 sm:p-16 bg-white max-w-[820px] w-full rounded-md"
+		>
+			<h1 class="text-[32px] font-bold">LET'S TALK</h1>
+
+			<div class="flex flex-col gap-4">
+				<div class="flex flex-col sm:flex-row gap-4">
+					<fieldset class="flex flex-col w-full gap-[10px]">
+						<label for="name">Name</label>
+						<input
+							class="bg-[#DCE7EA] p-4 rounded-md text-[#939393] placeholder:text-[#939393]"
+							type="text"
+							id="name"
+							placeholder="Enter your name"
+						/>
+					</fieldset>
+
+					<fieldset class="flex flex-col w-full gap-[10px]">
+						<label for="email">Email</label>
+						<input
+							class="bg-[#DCE7EA] p-4 rounded-md text-[#939393] placeholder:text-[#939393]"
+							type="email"
+							id="email"
+							placeholder="Enter your email"
+						/>
+					</fieldset>
+				</div>
+
+				<fieldset>
+					<label for="message">Message</label>
+					<textarea
+						class="w-full resize-none bg-[#DCE7EA] p-4 rounded-md text-[#939393] placeholder:text-[#939393]"
+						placeholder="Your message here..."
+					></textarea>
+				</fieldset>
+
+				<button class="bg-cinza-800 px-6 py-4 rounded-md text-white">
+					submit
+				</button>
+			</div>
+		</div>
+	</div>
+</Layout>

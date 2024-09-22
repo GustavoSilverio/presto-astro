@@ -1,0 +1,80 @@
+---
+interface Props {
+	title: string
+	closeButtonLabel?: string
+	drawerId: string
+}
+
+const { title, closeButtonLabel = "close", drawerId } = Astro.props as Props
+---
+
+<custom-drawer
+	class="fixed z-20 lg:max-w-[360px] rounded-l-2xl top-0 right-0 flex-col w-full h-full bg-white transform translate-x-full transition-transform duration-300 ease-in-out"
+	id={drawerId}
+	data-id={drawerId}
+>
+	<div
+		class="flex justify-between items-center px-8 py-6 border-b border-cinza-900"
+	>
+		<h1 class="text-2xl font-bold">{title}</h1>
+
+		<button class="underline">
+			{closeButtonLabel}
+		</button>
+	</div>
+
+	<div class="h-full px-8 py-6">
+		<slot />
+	</div>
+</custom-drawer>
+
+<div
+	id="drawer-backdrop"
+	class="fixed inset-0 z-10 bg-black opacity-0 pointer-events-none transition-opacity duration-300 ease-in-out"
+>
+</div>
+
+<script>
+	class Drawer extends HTMLElement {
+		backdrop: HTMLDivElement
+
+		constructor() {
+			super()
+			this.backdrop = document.getElementById(
+				"drawer-backdrop"
+			) as HTMLDivElement
+		}
+
+		connectedCallback() {
+			const drawerId = this.dataset.id as string
+			const drawer = document.getElementById(drawerId) as HTMLDivElement
+			const closeButton = drawer.querySelector(
+				"button"
+			) as HTMLButtonElement
+
+			closeButton.addEventListener("click", () => {
+				this.close()
+			})
+
+			this.backdrop.addEventListener("click", () => {
+				this.close()
+			})
+		}
+
+		open() {
+			this.classList.remove("translate-x-full")
+			this.classList.add("translate-x-0")
+			this.backdrop.classList.remove("opacity-0", "pointer-events-none")
+			this.backdrop.classList.add("opacity-50")
+		}
+
+		close() {
+			this.classList.remove("translate-x-0")
+			this.classList.add("translate-x-full")
+			this.backdrop.classList.remove("opacity-50")
+			this.backdrop.classList.add("opacity-0", "pointer-events-none")
+		}
+	}
+
+	customElements.define("custom-drawer", Drawer)
+</script>

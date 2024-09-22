@@ -1,0 +1,47 @@
+---
+import { Icons } from "../../content/icons"
+import Layout from "../../layouts/BaseLayout.astro"
+---
+
+<Layout title="Presto | About">
+	<div
+		class="flex flex-col px-8 justify-center items-center gap-6 lg:flex-row lg:gap-10 h-[calc(100dvh-206px)]"
+	>
+		<div class="flex flex-col gap-[18px] max-w-[400px] w-full">
+			<h1 class="text-[44px] font-bold">ABOUT US</h1>
+
+			<div class="flex flex-col gap-2">
+				<p class="text-cinza-800 font-bold">
+					Lorem ipsum dolor sit amet, consectetur adipisicing
+				</p>
+
+				<p class="font-medium">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+					Nullam feugiat sollicitudin lobortis. Cras dignissim at eros
+					ut malesuada. Donec sagittis dignissim leo nec eleifend.
+					Pellentesque eu semper augue, cursus malesuada.
+				</p>
+			</div>
+
+			<div class="flex flex-col gap-[18px]">
+				<button
+					class="bg-cinza-800 px-6 py-2 max-w-[121px] w-full text-white"
+				>
+					Read More
+				</button>
+
+				<div class="flex gap-3">
+					<Icons.linkedin />
+					<Icons.github />
+					<Icons.instagram />
+				</div>
+			</div>
+		</div>
+
+		<img
+			src="/images/man-working.png"
+			alt="Man working"
+			class="hidden lg:block w-[560px] h-auto max-h-[315px]"
+		/>
+	</div>
+</Layout>
