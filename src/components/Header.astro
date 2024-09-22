@@ -141,14 +141,6 @@ import Drawer from "./Drawer.astro"
 
 	const drawer = document.getElementById("menu") as Drawer
 
-	anchorsList.forEach(anchor => {
-		anchor.forEach(a => {
-			a.addEventListener("click", () => {
-				drawer.close()
-			})
-		})
-	})
-
 	const menuButton = document.getElementById(
 		"menu-button"
 	) as HTMLButtonElement
