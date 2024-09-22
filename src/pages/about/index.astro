@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets"
 import { Icons } from "../../content/icons"
 import Layout from "../../layouts/BaseLayout.astro"
 ---
@@ -38,8 +39,10 @@ import Layout from "../../layouts/BaseLayout.astro"
 			</div>
 		</div>
 
-		<img
+		<Image
 			src="/images/man-working.png"
+			width={560}
+			height={315}
 			alt="Man working"
 			class="hidden lg:block w-[560px] h-auto max-h-[315px]"
 		/>

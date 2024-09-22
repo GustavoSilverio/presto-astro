@@ -4,7 +4,10 @@ import Drawer from "./Drawer.astro"
 ---
 
 <header class="flex justify-between items-center px-10 lg:px-[120px] py-6">
-	<div class="flex items-center gap-4">
+	<div
+		id="logo-wrapper"
+		class="flex items-center gap-4"
+	>
 		<h1 class="hidden lg:block text-5xl font-bold">Presto</h1>
 
 		<Icons.logo />
@@ -119,7 +122,6 @@ import Drawer from "./Drawer.astro"
 	import type { Drawer } from "../types/utils"
 
 	const anchorsNames = ["home", "menu", "about", "contact"]
-
 	const anchorsList = anchorsNames.map(anchorName => {
 		return document.getElementsByName(anchorName) as NodeListOf<HTMLElement>
 	})
@@ -131,21 +133,52 @@ import Drawer from "./Drawer.astro"
 		"/contact": anchorsList[3],
 	}
 
-	const pathname = window.location.pathname
 	const style = ["text-primary", "underline"]
 
-	const selectedAnchors = anchors[pathname]
-	selectedAnchors?.forEach(anchor => {
-		anchor.classList.add(...style)
-	})
+	const updateActiveLink = () => {
+		const pathname = window.location.pathname
+		Object.keys(anchors).forEach(route => {
+			anchors[route]?.forEach(anchor => {
+				if (route === pathname) {
+					anchor.classList.add(...style)
+				} else {
+					anchor.classList.remove(...style)
+				}
+			})
+		})
+	}
 
-	const drawer = document.getElementById("menu") as Drawer
+	const initializeDrawer = () => {
+		const drawer = document.getElementById("menu") as Drawer
+		const menuButton = document.getElementById(
+			"menu-button"
+		) as HTMLButtonElement
 
-	const menuButton = document.getElementById(
-		"menu-button"
-	) as HTMLButtonElement
+		menuButton.addEventListener("click", () => {
+			drawer.open()
+		})
+	}
 
-	menuButton.addEventListener("click", () => {
-		drawer.open()
+	const initializeLogoRedirect = () => {
+		const logoWrapper = document.getElementById(
+			"logo-wrapper"
+		) as HTMLDivElement
+
+		if (logoWrapper) {
+			logoWrapper.addEventListener("click", () => {
+				window.location.href = "/"
+			})
+		}
+	}
+
+	const initializeHeader = () => {
+		updateActiveLink()
+		initializeDrawer()
+		initializeLogoRedirect()
+	}
+
+	//Every time the pages is loaded, the header is initialized to get the current states
+	document.addEventListener("astro:page-load", () => {
+		initializeHeader()
 	})
 </script>
